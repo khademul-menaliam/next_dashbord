@@ -1,11 +1,29 @@
+"use client";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Mail, Lock, Eye } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 export default function LoginPage() {
+  const router = useRouter();
+  const [errorMessage, setErrorMessage] = useState("");
+
+  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    setErrorMessage("");
+    const formData = new FormData(e.currentTarget);
+    const email = String(formData.get("email") || "");
+    const password = String(formData.get("password") || "");
+    if (email === "admin@gmail.com" && password === "12345678") {
+      router.push("/dashboard");
+    } else {
+      setErrorMessage("Invalid credentials. Try admin@gmail.com / 12345678");
+    }
+  }
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 flex items-center justify-center p-4">
       {/* Background Pattern */}
@@ -26,7 +44,7 @@ export default function LoginPage() {
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-6 relative z-10">
-          <form className="space-y-6">
+          <form className="space-y-6" onSubmit={handleSubmit}>
             <div className="space-y-2">
               <Label htmlFor="email" className="text-sm font-medium text-gray-200">
                 Email Address
@@ -36,8 +54,10 @@ export default function LoginPage() {
                 <Input
                   id="email"
                   type="email"
+                  name="email"
                   placeholder="Enter your email"
                   className="h-12 pl-10 bg-white/10 border-white/20 text-white placeholder:text-gray-300 focus:border-purple-400 focus:ring-purple-400/20"
+                  defaultValue="admin@gmail.com"
                   required
                 />
               </div>
@@ -51,8 +71,10 @@ export default function LoginPage() {
                 <Input
                   id="password"
                   type="password"
+                  name="password"
                   placeholder="Enter your password"
                   className="h-12 pl-10 pr-10 bg-white/10 border-white/20 text-white placeholder:text-gray-300 focus:border-purple-400 focus:ring-purple-400/20"
+                  defaultValue="12345678"
                   required
                 />
                 <Eye className="absolute right-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400 cursor-pointer hover:text-gray-300" />
@@ -64,6 +86,9 @@ export default function LoginPage() {
             >
               Sign In
             </Button>
+            {errorMessage ? (
+              <p className="text-sm text-red-200 text-center">{errorMessage}</p>
+            ) : null}
           </form>
           <div className="text-center">
             <Link 
