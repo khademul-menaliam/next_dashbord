@@ -3,9 +3,9 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Mail, Lock, Eye } from "lucide-react";
+import { ArrowLeft, Lock, KeyRound, Save } from "lucide-react";
 
-export default function LoginPage() {
+export default function NewPasswordPage() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 flex items-center justify-center p-4">
       {/* Background Pattern */}
@@ -20,59 +20,60 @@ export default function LoginPage() {
       <Card className="w-full max-w-md relative z-10 shadow-2xl border-0 bg-white/10 backdrop-blur-xl">
         <div className="absolute inset-0 bg-gradient-to-br from-white/20 to-white/5 rounded-lg"></div>
         <CardHeader className="space-y-1 text-center relative z-10">
-          <CardTitle className="text-3xl font-bold text-white mb-2">Welcome back</CardTitle>
+          <div className="flex items-center justify-center mb-4">
+            <Link 
+              href="/forgot-password/code" 
+              className="flex items-center gap-2 text-sm text-gray-300 hover:text-white transition-colors"
+            >
+              <ArrowLeft className="h-4 w-4" />
+              Back
+            </Link>
+          </div>
+          <CardTitle className="text-3xl font-bold text-white mb-2">Reset Password</CardTitle>
           <CardDescription className="text-gray-200">
-            Enter your credentials to access your account
+            Enter your new password below
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-6 relative z-10">
           <form className="space-y-6">
             <div className="space-y-2">
-              <Label htmlFor="email" className="text-sm font-medium text-gray-200">
-                Email Address
+              <Label htmlFor="newPassword" className="text-sm font-medium text-gray-200">
+                New Password
               </Label>
               <div className="relative">
-                <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
+                <KeyRound className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
                 <Input
-                  id="email"
-                  type="email"
-                  placeholder="Enter your email"
+                  id="newPassword"
+                  type="password"
+                  placeholder="Enter your new password"
                   className="h-12 pl-10 bg-white/10 border-white/20 text-white placeholder:text-gray-300 focus:border-purple-400 focus:ring-purple-400/20"
                   required
                 />
               </div>
             </div>
             <div className="space-y-2">
-              <Label htmlFor="password" className="text-sm font-medium text-gray-200">
-                Password
+              <Label htmlFor="confirmPassword" className="text-sm font-medium text-gray-200">
+                Confirm Password
               </Label>
               <div className="relative">
                 <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
                 <Input
-                  id="password"
+                  id="confirmPassword"
                   type="password"
-                  placeholder="Enter your password"
-                  className="h-12 pl-10 pr-10 bg-white/10 border-white/20 text-white placeholder:text-gray-300 focus:border-purple-400 focus:ring-purple-400/20"
+                  placeholder="Confirm your new password"
+                  className="h-12 pl-10 bg-white/10 border-white/20 text-white placeholder:text-gray-300 focus:border-purple-400 focus:ring-purple-400/20"
                   required
                 />
-                <Eye className="absolute right-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400 cursor-pointer hover:text-gray-300" />
               </div>
             </div>
             <Button 
               type="submit" 
-              className="w-full h-12 bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white font-semibold text-base transition-all duration-300 shadow-lg hover:shadow-purple-500/25 transform hover:scale-[1.02]"
+              className="w-full h-12 bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white font-semibold text-base transition-all duration-300 shadow-lg hover:shadow-purple-500/25 transform hover:scale-[1.02] flex items-center justify-center gap-2"
             >
-              Sign In
+              <Save className="h-4 w-4" />
+              Reset Password
             </Button>
           </form>
-          <div className="text-center">
-            <Link 
-              href="/forgot-password" 
-              className="text-sm text-purple-300 hover:text-purple-200 font-medium transition-colors hover:underline"
-            >
-              Forgot Password?
-            </Link>
-          </div>
         </CardContent>
       </Card>
     </div>
